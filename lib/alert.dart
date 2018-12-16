@@ -14,7 +14,7 @@ class AlertAction {
   final bool isDefaultAction;
   final bool isDestructiveAction;
   final VoidCallback onPressed;
-  final automaticallyPopNavigation;
+    final automaticallyPopNavigation;
 
   const AlertAction({
     @required this.text,
