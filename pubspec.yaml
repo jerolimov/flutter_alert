@@ -1,6 +1,6 @@
 name: flutter_alert
 description: Flutter package which shows a crossplatform alert messages on Android (Material) and iOS (Cupertino).
-version: 0.1.0
+version: 0.2.0
 author: Christoph Jerolimov <jerolimov+flutter@gmail.com>
 homepage: https://github.com/jerolimov/flutter_alert
 
