@@ -1,3 +1,8 @@
+// Copyright 2018 Christoph Jerolimov
+//
+// Use of this source code is governed by the MIT License
+// that can be found in the LICENSE file.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
