@@ -1,13 +1,63 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:alert/alert.dart';
 
+class MyTestApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: MyTestButton(),
+      ),
+    );
+  }
+}
+
+class MyTestButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      child: Text("Show Dialog"),
+      onPressed: () => _showDialog(context),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    showAlert(
+      context: context,
+      title: "Alert title",
+      body: "Alert body",
+      actions: [
+        AlertAction(
+          text: "Delete",
+          isDestructiveAction: true,
+          onPressed: () {},
+        ),
+        AlertAction(
+          text: "Cancel",
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+}
+
 void main() {
-  test('adds one to input values', () {
-    final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
-    expect(() => calculator.addOne(null), throwsNoSuchMethodError);
+  testWidgets('test widget', (WidgetTester tester) async {
+    await tester.pumpWidget(MyTestApp());
+
+    expect(find.text("Show Dialog"), findsOneWidget);
+    expect(find.text("Alert title"), findsNothing);
+    expect(find.text("Alert body"), findsNothing);
+
+    await tester.tap(find.text("Show Dialog"));
+    await tester.pump();
+
+    expect(find.text("Show Dialog"), findsOneWidget);
+    expect(find.text("Alert title"), findsOneWidget);
+    expect(find.text("Alert body"), findsOneWidget);
+    expect(find.text("Delete"), findsOneWidget);
+    expect(find.text("Cancel"), findsOneWidget);
   });
 }

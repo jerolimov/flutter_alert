@@ -22,7 +22,7 @@ matrix:
         - tar -xf flutter.tar.tar.xz
         - ./flutter/bin/flutter doctor
       script:
-        - ./flutter/bin/flutter build apk
+        - ./flutter/bin/flutter test
 
     - language: objective-c
       osx_image: xcode10
@@ -31,5 +31,4 @@ matrix:
         - unzip -q flutter.zip
         - ./flutter/bin/flutter doctor
       script:
-        - ./flutter/bin/flutter build ios --no-codesign
-
+        - ./flutter/bin/flutter test
