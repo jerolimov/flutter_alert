@@ -21,6 +21,7 @@ matrix:
         - curl -o flutter.tar.tar.xz https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_v1.0.0-stable.tar.xz
         - tar -xf flutter.tar.tar.xz
         - ./flutter/bin/flutter doctor
+        - ./flutter/bin/flutter packages get
       script:
         - ./flutter/bin/cache/dart-sdk/bin/dartfmt -n --set-exit-if-changed example lib test
         - ./flutter/bin/cache/dart-sdk/bin/dartanalyzer example lib test
@@ -32,6 +33,7 @@ matrix:
         - curl -o flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.0.0-stable.zip
         - unzip -q flutter.zip
         - ./flutter/bin/flutter doctor
+        - ./flutter/bin/flutter packages get
       script:
         - ./flutter/bin/cache/dart-sdk/bin/dartfmt -n --set-exit-if-changed example lib test
         - ./flutter/bin/cache/dart-sdk/bin/dartanalyzer example lib test
