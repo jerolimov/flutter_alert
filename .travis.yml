@@ -1,0 +1,35 @@
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.cocoapods
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+matrix:
+  include:
+
+    - language: android
+      jdk: oraclejdk8
+      android:
+        components:
+          - build-tools-27.0.3
+          - build-tools-28.0.3
+          - android-27
+          - android-28
+      install:
+        - curl -o flutter.tar.tar.xz https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_v1.0.0-stable.tar.xz
+        - tar -xf flutter.tar.tar.xz
+        - ./flutter/bin/flutter doctor
+      script:
+        - ./flutter/bin/flutter build apk
+
+    - language: objective-c
+      osx_image: xcode10
+      install:
+        - curl -o flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.0.0-stable.zip
+        - unzip -q flutter.zip
+        - ./flutter/bin/flutter doctor
+      script:
+        - ./flutter/bin/flutter build ios --no-codesign
+
