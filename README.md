@@ -10,7 +10,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  flutter_alert: ^0.1.0
+  flutter_alert: ^0.3.0
 ```
 
 You can install packages from the command line:

@@ -5,3 +5,4 @@ dependencies:
     sdk: flutter
   flutter_alert:
     path: ../
+
