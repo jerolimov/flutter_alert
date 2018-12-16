@@ -94,8 +94,8 @@ void showAlert({
           onPressed: () {})
     ];
   }
-  if (barrierDismissible == null && !Platform.isIOS) {
-    barrierDismissible = cancelable;
+  if (barrierDismissible == null) {
+    barrierDismissible = cancelable && !Platform.isIOS;
   }
   if (cancelable) {
     actions.add(AlertAction(
