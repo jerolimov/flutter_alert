@@ -8,7 +8,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  alert: ^0.0.1
+  flutter_alert: ^0.1.0
 ```
 
 You can install packages from the command line:
@@ -24,7 +24,7 @@ Alternatively, your editor might support flutter packages get. Check the docs fo
 In your Dart code, add this import:
 
 ```darf
-import 'package:alert/alert.dart';
+import 'package:flutter_alert/flutter_alert.dart';
 ```
 
 And later show an alert when neccessary:

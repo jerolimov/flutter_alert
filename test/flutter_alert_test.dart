@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:alert/alert.dart';
+import 'package:flutter_alert/flutter_alert.dart';
 
 class MyTestApp extends StatelessWidget {
   @override

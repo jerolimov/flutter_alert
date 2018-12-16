@@ -1,6 +1,6 @@
 test:
-	dartfmt -n --set-exit-if-changed lib test
+	dartfmt -n --set-exit-if-changed example lib test
 	flutter test
 
 format:
-	dartfmt -w lib test
+	dartfmt -w example lib test

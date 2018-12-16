@@ -22,7 +22,7 @@ matrix:
         - tar -xf flutter.tar.tar.xz
         - ./flutter/bin/flutter doctor
       script:
-        - ./bin/cache/dart-sdk/bin/dartfmt -n --set-exit-if-changed lib test
+        - ./bin/cache/dart-sdk/bin/dartfmt -n --set-exit-if-changed example lib test
         - ./flutter/bin/flutter test
 
     - language: objective-c
@@ -32,5 +32,5 @@ matrix:
         - unzip -q flutter.zip
         - ./flutter/bin/flutter doctor
       script:
-        - ./bin/cache/dart-sdk/bin/dartfmt -n --set-exit-if-changed lib test
+        - ./bin/cache/dart-sdk/bin/dartfmt -n --set-exit-if-changed example lib test
         - ./flutter/bin/flutter test
