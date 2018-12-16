@@ -1,0 +1,7 @@
+name: flutter_alert_example
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_alert:
+    path: ../
