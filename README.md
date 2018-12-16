@@ -1,10 +1,33 @@
 # flutter_alert
 
-A Flutter package to simplify alert messages on Android (Material) and iOS (Cupertino).
+Flutter package which shows a crossplatform alert messages on Android (Material) and iOS (Cupertino).
 
 ## Getting Started
 
-Example:
+Add this to your package's pubspec.yaml file:
+
+```yaml
+dependencies:
+  alert: ^0.0.1
+```
+
+You can install packages from the command line:
+
+```
+$ flutter packages get
+```
+
+Alternatively, your editor might support flutter packages get. Check the docs for your editor to learn more.
+
+## Example
+
+In your Dart code, add this import:
+
+```darf
+import 'package:alert/alert.dart';
+```
+
+And later show an alert when neccessary:
 
 ```dart
   void _showMessageDialog() {
