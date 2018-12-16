@@ -57,3 +57,16 @@ And later show an alert when neccessary:
     );
   }
 ```
+
+## Contributors
+
+Thanks goes to these people ([emoji key][emojis]):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| <img src="https://avatars.githubusercontent.com/u/139310?s=100&v=4" width="100px;"/><br /><sub><b>Christoph Jerolimov</b></sub><br />[💻](https://github.com/jerolimov/flutter_alert/commits?author=jerolimov "Code") [📖](https://github.com/jerolimov/flutter_alert/commits?author=jerolimov "Documentation") [⚠️](https://github.com/jerolimov/flutter_alert/commits?author=jerolimov "Tests") | [<img src="https://avatars1.githubusercontent.com/u/7152774?s=100&v=4" width="100px;"/><br /><sub><b>Christian Stahl</b></sub>](https://github.com/thinkmobilede)<br />[💻](https://github.com/jerolimov/flutter_alert/commits?author=thinkmobilede "Code") [🤔](#ideas-thinkmobilede "Ideas, Planning, & Feedback") |
+| :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors][all-contributors] specification.
+Contributions of any kind welcome!
