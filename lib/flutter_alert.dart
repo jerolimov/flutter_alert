@@ -112,12 +112,20 @@ void showAlert({
     useCupertino = Platform.isIOS;
   }
 
-  showDialog(
-    context: context,
-    barrierDismissible: barrierDismissible,
-    builder: (BuildContext context) =>
-        _buildDialog(context, title, body, actions, useCupertino),
-  );
+  if (useCupertino) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) =>
+          _buildDialog(context, title, body, actions, useCupertino),
+    );
+  } else {
+    showDialog(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (BuildContext context) =>
+          _buildDialog(context, title, body, actions, useCupertino),
+    );
+  }
 }
 
 Widget _buildDialog(
