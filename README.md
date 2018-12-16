@@ -1,5 +1,7 @@
 # flutter_alert
 
+[![Build Status](https://travis-ci.org/jerolimov/flutter_alert.svg?branch=master)](https://travis-ci.org/jerolimov/flutter_alert)
+
 Flutter package which shows a crossplatform alert messages on Android (Material) and iOS (Cupertino).
 
 ## Getting Started
