@@ -7,7 +7,14 @@ A Flutter package to simplify alert messages on Android (Material) and iOS (Cupe
 Example:
 
 ```dart
-  void _showDialog() {
+  void _showMessageDialog() {
+    showAlert(
+      context: context,
+      title: "Awesome feature enabled.",
+    );
+  }
+
+  void _showQuestionDialog() {
     showAlert(
       context: context,
       title: "Delete file?",
@@ -20,13 +27,8 @@ Example:
             // TODO
           },
         ),
-        AlertAction(
-          text: "Cancel",
-          onPressed: () {
-            // TODO
-          },
-        ),
       ],
+      cancelable: true,
     );
   }
 ```

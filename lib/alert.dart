@@ -2,6 +2,7 @@
 //
 // Use of this source code is governed by the MIT License
 // that can be found in the LICENSE file.
+
 import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
@@ -28,13 +29,31 @@ void showAlert({
   String title,
   String body,
   List<AlertAction> actions,
-  bool barrierDismissible = false,
+  bool barrierDismissible,
+  bool cancelable = false,
   bool useCupertino,
 }) {
   if (actions == null || actions.isEmpty) {
-    actions = [AlertAction(text: "OK", onPressed: () {})];
+    actions = [
+      AlertAction(
+          text: MaterialLocalizations.of(context).okButtonLabel,
+          onPressed: () {})
+    ];
   }
-
+  if (barrierDismissible == null && !Platform.isIOS) {
+    barrierDismissible = cancelable;
+  }
+  if (cancelable) {
+    actions.add(AlertAction(
+        text: MaterialLocalizations.of(context)
+                .cancelButtonLabel
+                .substring(0, 1) +
+            MaterialLocalizations.of(context)
+                .cancelButtonLabel
+                .substring(1)
+                .toLowerCase(),
+        onPressed: () {}));
+  }
   if (useCupertino == null) {
     useCupertino = Platform.isIOS;
   }

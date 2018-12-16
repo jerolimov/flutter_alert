@@ -34,11 +34,8 @@ class MyTestButton extends StatelessWidget {
           isDestructiveAction: true,
           onPressed: () {},
         ),
-        AlertAction(
-          text: "Cancel",
-          onPressed: () {},
-        ),
       ],
+      cancelable: true,
     );
   }
 }
@@ -57,7 +54,9 @@ void main() {
     expect(find.text("Show Dialog"), findsOneWidget);
     expect(find.text("Alert title"), findsOneWidget);
     expect(find.text("Alert body"), findsOneWidget);
-    expect(find.text("Delete"), findsOneWidget);
-    expect(find.text("Cancel"), findsOneWidget);
+
+    // Material variant
+    expect(find.text("DELETE"), findsOneWidget);
+    expect(find.text("CANCEL"), findsOneWidget);
   });
 }
