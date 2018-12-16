@@ -40,23 +40,28 @@ Widget _buildBody(String body) {
   return SingleChildScrollView(child: Text(body));
 }
 
-List<Widget> _buildActions(BuildContext context, bool isIOS, List<AlertAction> actions) {
+List<Widget> _buildActions(
+    BuildContext context, bool isIOS, List<AlertAction> actions) {
   return actions.map((AlertAction action) {
-    VoidCallback onPressed = action.enabled && action.onPressed != null ? () {
-      action.onPressed();
-      if (action.automaticallyPopNavigation) {
-        NavigatorState navigatorState = Navigator.of(context);
-        if (navigatorState.canPop()) {
-          navigatorState.pop();
-        }
-      }
-    } : null;
+    VoidCallback onPressed = action.enabled && action.onPressed != null
+        ? () {
+            action.onPressed();
+            if (action.automaticallyPopNavigation) {
+              NavigatorState navigatorState = Navigator.of(context);
+              if (navigatorState.canPop()) {
+                navigatorState.pop();
+              }
+            }
+          }
+        : null;
 
     if (isIOS) {
       return CupertinoDialogAction(
         child: Text(
           action.text != null ? action.text : "",
-          style: action.isDefaultAction ? TextStyle(fontWeight: FontWeight.bold) : null,
+          style: action.isDefaultAction
+              ? TextStyle(fontWeight: FontWeight.bold)
+              : null,
         ),
         isDefaultAction: action.isDefaultAction,
         isDestructiveAction: action.isDestructiveAction,
@@ -66,7 +71,9 @@ List<Widget> _buildActions(BuildContext context, bool isIOS, List<AlertAction> a
       return FlatButton(
         child: Text(
           action.text != null ? action.text.toUpperCase() : "",
-          style: action.isDefaultAction ? TextStyle(fontWeight: FontWeight.bold) : null,
+          style: action.isDefaultAction
+              ? TextStyle(fontWeight: FontWeight.bold)
+              : null,
         ),
         textColor: action.isDestructiveAction ? Colors.red.shade600 : null,
         highlightColor: action.isDestructiveAction ? Colors.red.shade50 : null,
@@ -86,26 +93,22 @@ showAlert({
   const isIOS = true; // Platform.isIOS
 
   if (actions == null || actions.isEmpty) {
-    actions = [
-      AlertAction(
-          text: "OK",
-          onPressed: () {}
-      )
-    ];
+    actions = [AlertAction(text: "OK", onPressed: () {})];
   }
 
-  Widget dialogWidget = isIOS ? CupertinoAlertDialog(
-    title: _buildTitle(title),
-    content: _buildBody(body),
-    actions: _buildActions(context, true, actions),
-  ) : AlertDialog(
-    title: _buildTitle(title),
-    content: _buildBody(body),
-    actions: _buildActions(context, false, actions),
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(5))
-    ),
-  );
+  Widget dialogWidget = isIOS
+      ? CupertinoAlertDialog(
+          title: _buildTitle(title),
+          content: _buildBody(body),
+          actions: _buildActions(context, true, actions),
+        )
+      : AlertDialog(
+          title: _buildTitle(title),
+          content: _buildBody(body),
+          actions: _buildActions(context, false, actions),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5))),
+        );
 
   showDialog(
     context: context,
