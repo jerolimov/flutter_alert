@@ -36,12 +36,12 @@ class AlertAction {
     /// Defines if the button is the default button.
     /// Set this value to true to render the button with a bold text weight.
     /// The default value is false.
-    bool this.isDefaultAction = false,
+    this.isDefaultAction = false,
 
     /// Defines if the button is a destructive or dangerous button.
     /// Set this value to true to render this button with a red text color.
     /// The default value is false.
-    bool this.isDestructiveAction = false,
+    this.isDestructiveAction = false,
 
     /// Callback handler when this button was pressed.
     @required this.onPressed,
@@ -49,7 +49,7 @@ class AlertAction {
     /// Defines if the button will automatically close the dialog by
     /// trigger a Navigation pop action or not.
     /// The default value is true.
-    bool this.automaticallyPopNavigation = true,
+    this.automaticallyPopNavigation = true,
   });
 }
 

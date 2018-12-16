@@ -5,7 +5,6 @@ import 'package:flutter_alert/flutter_alert.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,8 +18,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHome extends StatelessWidget {
-  int counter = 0;
-
   void _showDialog(BuildContext context) {
     showAlert(
       context: context,
@@ -44,20 +41,6 @@ class MyHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("OK"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have clicked the asdsd this many times:',
-            ),
-            Text(
-              '$counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showDialog(context),

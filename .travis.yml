@@ -23,6 +23,7 @@ matrix:
         - ./flutter/bin/flutter doctor
       script:
         - ./bin/cache/dart-sdk/bin/dartfmt -n --set-exit-if-changed example lib test
+        - ./bin/cache/dart-sdk/bin/dartanalyzer example lib test
         - ./flutter/bin/flutter test
 
     - language: objective-c
@@ -33,4 +34,5 @@ matrix:
         - ./flutter/bin/flutter doctor
       script:
         - ./bin/cache/dart-sdk/bin/dartfmt -n --set-exit-if-changed example lib test
+        - ./bin/cache/dart-sdk/bin/dartanalyzer example lib test
         - ./flutter/bin/flutter test
