@@ -13,14 +13,14 @@ Example:
       title: "Delete file?",
       body: "Should we delete the file XYZ?",
       actions: [
-        new AlertAction(
+        AlertAction(
           text: "Delete",
           isDestructiveAction: true,
           onPressed: () {
             // TODO
           },
         ),
-        new AlertAction(
+        AlertAction(
           text: "Cancel",
           onPressed: () {
             // TODO
