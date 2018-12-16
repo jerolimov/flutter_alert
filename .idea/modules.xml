@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/alert.iml" filepath="$PROJECT_DIR$/alert.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flutter_alert.iml" filepath="$PROJECT_DIR$/flutter_alert.iml" />
     </modules>
   </component>
 </project>
