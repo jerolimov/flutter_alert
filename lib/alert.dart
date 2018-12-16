@@ -2,7 +2,6 @@
 //
 // Use of this source code is governed by the MIT License
 // that can be found in the LICENSE file.
-
 import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
@@ -24,6 +23,54 @@ class AlertAction {
   });
 }
 
+void showAlert({
+  @required BuildContext context,
+  String title,
+  String body,
+  List<AlertAction> actions,
+  bool barrierDismissible = false,
+  bool useCupertino,
+}) {
+  if (actions == null || actions.isEmpty) {
+    actions = [AlertAction(text: "OK", onPressed: () {})];
+  }
+
+  if (useCupertino == null) {
+    useCupertino = Platform.isIOS;
+  }
+
+  showDialog(
+    context: context,
+    barrierDismissible: barrierDismissible,
+    builder: (BuildContext context) =>
+        _buildDialog(context, title, body, actions, useCupertino),
+  );
+}
+
+Widget _buildDialog(
+  BuildContext context,
+  String title,
+  String body,
+  List<AlertAction> actions,
+  bool useCupertino,
+) {
+  if (useCupertino) {
+    return CupertinoAlertDialog(
+      title: _buildTitle(title),
+      content: _buildBody(body),
+      actions: _buildActionButtons(context, actions, useCupertino),
+    );
+  } else {
+    return AlertDialog(
+      title: _buildTitle(title),
+      content: _buildBody(body),
+      actions: _buildActionButtons(context, actions, useCupertino),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+    );
+  }
+}
+
 Widget _buildTitle(String title) {
   if (title == null || title.isEmpty) {
     return null;
@@ -36,6 +83,17 @@ Widget _buildBody(String body) {
     return null;
   }
   return SingleChildScrollView(child: Text(body));
+}
+
+List<Widget> _buildActionButtons(
+  BuildContext context,
+  List<AlertAction> actions,
+  bool useCupertino,
+) {
+  return actions
+      .map((AlertAction action) =>
+          _buildActionButton(context, action, useCupertino))
+      .toList();
 }
 
 Widget _buildActionButton(
@@ -77,63 +135,4 @@ Widget _buildActionButton(
       onPressed: onPressed,
     );
   }
-}
-
-List<Widget> _buildActionButtons(
-  BuildContext context,
-  List<AlertAction> actions,
-  bool useCupertino,
-) {
-  return actions
-      .map((AlertAction action) =>
-          _buildActionButton(context, action, useCupertino))
-      .toList();
-}
-
-Widget _buildDialog(
-  BuildContext context,
-  String title,
-  String body,
-  List<AlertAction> actions,
-  bool useCupertino,
-) {
-  if (useCupertino) {
-    return CupertinoAlertDialog(
-      title: _buildTitle(title),
-      content: _buildBody(body),
-      actions: _buildActionButtons(context, actions, useCupertino),
-    );
-  } else {
-    return AlertDialog(
-      title: _buildTitle(title),
-      content: _buildBody(body),
-      actions: _buildActionButtons(context, actions, useCupertino),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5))),
-    );
-  }
-}
-
-void showAlert({
-  @required BuildContext context,
-  String title,
-  String body,
-  List<AlertAction> actions,
-  bool barrierDismissible = false,
-  bool useCupertino,
-}) {
-  if (actions == null || actions.isEmpty) {
-    actions = [AlertAction(text: "OK", onPressed: () {})];
-  }
-
-  if (useCupertino == null) {
-    useCupertino = Platform.isIOS;
-  }
-
-  showDialog(
-    context: context,
-    barrierDismissible: barrierDismissible,
-    builder: (BuildContext context) =>
-        _buildDialog(context, title, body, actions, useCupertino),
-  );
 }
