@@ -1,3 +1,7 @@
+## [0.3.0]
+
+- Structure changes to fix unit tests / CI.
+
 ## [0.2.0]
 
 - Add documentation for all public fields.
@@ -6,4 +10,5 @@
 
 ## [0.1.0]
 
-Initial release
+- Initial release
+
