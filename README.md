@@ -70,3 +70,6 @@ Thanks goes to these people ([emoji key][emojis]):
 
 This project follows the [all-contributors][all-contributors] specification.
 Contributions of any kind welcome!
+
+[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
+[all-contributors]: https://github.com/kentcdodds/all-contributors
