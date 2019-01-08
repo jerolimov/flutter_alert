@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 import 'dart:ui' show VoidCallback;
+import 'package:meta/meta.dart' show required;
 import 'package:flutter/widgets.dart' show BuildContext;
 
 import 'package:flutter_alert/flutter_alert_cupertino.dart';
