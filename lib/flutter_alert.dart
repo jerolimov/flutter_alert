@@ -81,11 +81,56 @@ void showAlert({
   /// button.
   /// Only if this option was set to true. The default is false.
   bool cancelable = false,
+}) {
+  if (Platform.isIOS) {
+    showCupertinoAlert(
+      context: context,
+      title: title,
+      body: body,
+      actions: actions,
+      barrierDismissible: barrierDismissible,
+      cancelable: cancelable,
+    );
+  } else {
+    showMaterialAlert(
+      context: context,
+      title: title,
+      body: body,
+      actions: actions,
+      barrierDismissible: barrierDismissible,
+      cancelable: cancelable,
+    );
+  }
+}
 
-  /// Define if the Cupertino or Material UI package should be used.
-  /// The default is that the Cupertino package was used on iOS,
-  /// and the Material UI package in all other cases.
-  bool useCupertino,
+/// Shows an alert dialog with the official flutter cupertino package.
+void showCupertinoAlert({
+  /// A build context. Required.
+  @required BuildContext context,
+
+  /// The title of the modal dialog.
+  String title,
+
+  /// The body (or content) of the modal dialog.
+  /// The text was automatically rendered in a ScrollView.
+  String body,
+
+  /// A List of actions. For each action there was shown one button.
+  /// If there was no action defined, a default action with a
+  /// (localized) "OK" button was shown.
+  List<AlertAction> actions,
+
+  /// Allow you to define if the alert dialog is closable when
+  /// the users taps beside the alert dialog.
+  /// Default is only true when cancelable is set to true
+  /// and the platform is not iOS.
+  bool barrierDismissible,
+
+  /// Automatically adds a (localized) "Cancel" button to the list
+  /// of buttons. Currently its not possible to handle the cancel
+  /// button.
+  /// Only if this option was set to true. The default is false.
+  bool cancelable = false,
 }) {
   if (actions == null || actions.isEmpty) {
     actions = [
@@ -108,48 +153,85 @@ void showAlert({
                 .toLowerCase(),
         onPressed: () {}));
   }
-  if (useCupertino == null) {
-    useCupertino = Platform.isIOS;
-  }
 
-  if (useCupertino) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) =>
-          _buildDialog(context, title, body, actions, useCupertino),
-    );
-  } else {
-    showDialog(
-      context: context,
-      barrierDismissible: barrierDismissible,
-      builder: (BuildContext context) =>
-          _buildDialog(context, title, body, actions, useCupertino),
-    );
-  }
+  showCupertinoDialog(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+          title: _buildTitle(title),
+          content: _buildBody(body),
+          actions: actions
+              .map((AlertAction action) =>
+                  _buildCupertinoActionButton(context, action))
+              .toList(),
+        ),
+  );
 }
 
-Widget _buildDialog(
-  BuildContext context,
+/// Shows an alert dialog with the official flutter material package.
+void showMaterialAlert({
+  /// A build context. Required.
+  @required BuildContext context,
+
+  /// The title of the modal dialog.
   String title,
+
+  /// The body (or content) of the modal dialog.
+  /// The text was automatically rendered in a ScrollView.
   String body,
+
+  /// A List of actions. For each action there was shown one button.
+  /// If there was no action defined, a default action with a
+  /// (localized) "OK" button was shown.
   List<AlertAction> actions,
-  bool useCupertino,
-) {
-  if (useCupertino) {
-    return CupertinoAlertDialog(
-      title: _buildTitle(title),
-      content: _buildBody(body),
-      actions: _buildActionButtons(context, actions, useCupertino),
-    );
-  } else {
-    return AlertDialog(
-      title: _buildTitle(title),
-      content: _buildBody(body),
-      actions: _buildActionButtons(context, actions, useCupertino),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5))),
-    );
+
+  /// Allow you to define if the alert dialog is closable when
+  /// the users taps beside the alert dialog.
+  /// Default is only true when cancelable is set to true
+  /// and the platform is not iOS.
+  bool barrierDismissible,
+
+  /// Automatically adds a (localized) "Cancel" button to the list
+  /// of buttons. Currently its not possible to handle the cancel
+  /// button.
+  /// Only if this option was set to true. The default is false.
+  bool cancelable = false,
+}) {
+  if (actions == null || actions.isEmpty) {
+    actions = [
+      AlertAction(
+          text: MaterialLocalizations.of(context).okButtonLabel,
+          onPressed: () {})
+    ];
   }
+  if (barrierDismissible == null) {
+    barrierDismissible = cancelable && !Platform.isIOS;
+  }
+  if (cancelable) {
+    actions.add(AlertAction(
+        text: MaterialLocalizations.of(context)
+                .cancelButtonLabel
+                .substring(0, 1) +
+            MaterialLocalizations.of(context)
+                .cancelButtonLabel
+                .substring(1)
+                .toLowerCase(),
+        onPressed: () {}));
+  }
+
+  showDialog(
+    context: context,
+    barrierDismissible: barrierDismissible,
+    builder: (BuildContext context) => AlertDialog(
+          title: _buildTitle(title),
+          content: _buildBody(body),
+          actions: actions
+              .map((AlertAction action) =>
+                  _buildMaterialActionButton(context, action))
+              .toList(),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5))),
+        ),
+  );
 }
 
 Widget _buildTitle(String title) {
@@ -166,19 +248,7 @@ Widget _buildBody(String body) {
   return SingleChildScrollView(child: Text(body));
 }
 
-List<Widget> _buildActionButtons(
-  BuildContext context,
-  List<AlertAction> actions,
-  bool useCupertino,
-) {
-  return actions
-      .map((AlertAction action) =>
-          _buildActionButton(context, action, useCupertino))
-      .toList();
-}
-
-Widget _buildActionButton(
-    BuildContext context, AlertAction action, bool useCupertino) {
+Widget _buildCupertinoActionButton(BuildContext context, AlertAction action) {
   VoidCallback onPressed = () {
     if (action.automaticallyPopNavigation) {
       NavigatorState navigatorState = Navigator.of(context);
@@ -191,29 +261,41 @@ Widget _buildActionButton(
     }
   };
 
-  if (useCupertino) {
-    return CupertinoDialogAction(
-      child: Text(
-        action.text != null ? action.text : "",
-        style: action.isDefaultAction
-            ? TextStyle(fontWeight: FontWeight.bold)
-            : null,
-      ),
-      isDefaultAction: action.isDefaultAction,
-      isDestructiveAction: action.isDestructiveAction,
-      onPressed: onPressed,
-    );
-  } else {
-    return FlatButton(
-      child: Text(
-        action.text != null ? action.text.toUpperCase() : "",
-        style: action.isDefaultAction
-            ? TextStyle(fontWeight: FontWeight.bold)
-            : null,
-      ),
-      textColor: action.isDestructiveAction ? Colors.red.shade600 : null,
-      highlightColor: action.isDestructiveAction ? Colors.red.shade50 : null,
-      onPressed: onPressed,
-    );
-  }
+  return CupertinoDialogAction(
+    child: Text(
+      action.text != null ? action.text : "",
+      style: action.isDefaultAction
+          ? TextStyle(fontWeight: FontWeight.bold)
+          : null,
+    ),
+    isDefaultAction: action.isDefaultAction,
+    isDestructiveAction: action.isDestructiveAction,
+    onPressed: onPressed,
+  );
+}
+
+Widget _buildMaterialActionButton(BuildContext context, AlertAction action) {
+  VoidCallback onPressed = () {
+    if (action.automaticallyPopNavigation) {
+      NavigatorState navigatorState = Navigator.of(context);
+      if (navigatorState.canPop()) {
+        navigatorState.pop();
+      }
+    }
+    if (action.onPressed != null) {
+      action.onPressed();
+    }
+  };
+
+  return FlatButton(
+    child: Text(
+      action.text != null ? action.text.toUpperCase() : "",
+      style: action.isDefaultAction
+          ? TextStyle(fontWeight: FontWeight.bold)
+          : null,
+    ),
+    textColor: action.isDestructiveAction ? Colors.red.shade600 : null,
+    highlightColor: action.isDestructiveAction ? Colors.red.shade50 : null,
+    onPressed: onPressed,
+  );
 }
